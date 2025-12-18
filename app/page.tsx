@@ -27,14 +27,14 @@ export default function Home() {
           </h1>
           <p className="text-gray-600 mb-8 leading-relaxed">
             Mohon maaf, kami sedang melakukan peningkatan sistem. <br />
-            Namun, <strong>Klinik VetQu tetap buka melayani Anda!</strong>
+            Namun, <strong>VetQu tetap buka melayani Anda!</strong>
           </p>
 
           {/* --- BAGIAN BARU: TOMBOL AKSI DI DALAM OVERLAY --- */}
           <div className="flex flex-col gap-3 mb-8">
             {/* 1. Tombol WA (Hijau) */}
             <a
-              href="https://wa.me/6281219818004?text=Halo%20VetQu,%20saya%20melihat%20website%20sedang%20maintenance,%20saya%20ingin%20bertanya..."
+              href="https://wa.me/6281219818004?text=Halo%20Kak,%20saya%20ingin%20booking%20layanan%20atau%20konsultasi%20untuk%20anabul%20saya"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 w-full bg-green-600 text-white font-bold py-3 px-4 rounded-xl hover:bg-green-700 transition shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
@@ -55,7 +55,7 @@ export default function Home() {
               href="https://maps.app.goo.gl/Ne5QW2G83VvsCPJZ9"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 w-full bg-gray-100 text-gray-700 font-semibold py-3 px-4 rounded-xl hover:bg-gray-200 transition border border-gray-200"
+              className="flex items-center justify-center gap-2 w-full bg-gray-200 text-gray-700 font-semibold py-3 px-4 rounded-xl hover:bg-gray-200 transition border border-gray-200"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
