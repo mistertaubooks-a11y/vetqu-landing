@@ -6,6 +6,7 @@ import { doctorType } from './sanity/schemas/doctor';
 import { testimonialType } from './sanity/schemas/testimonial';
 import { educationTipType } from './sanity/schemas/educationTip';
 import { faqType } from './sanity/schemas/faq';
+import { facilityType } from './sanity/schemas/facility';
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '9vg8e4g6';
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production';
@@ -22,6 +23,7 @@ export default defineConfig({
       heroType,
       promoType,
       doctorType,
+      facilityType,
       testimonialType,
       educationTipType,
       faqType,

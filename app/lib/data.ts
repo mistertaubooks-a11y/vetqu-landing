@@ -35,30 +35,30 @@ const defaultLandingData = {
       id: "vaksinasi",
       title: "Vaksinasi Lengkap",
       description: "Lindungi anabul dari berbagai penyakit berbahaya dengan program vaksinasi berkala yang sesuai standar medis veteriner.",
-      iconName: "ShieldPlus", 
+      iconName: "ShieldPlus",
     },
     {
       id: "medical-checkup",
       title: "Medical Check-Up",
-      description: "Pemeriksaan kesehatan menyeluruh untuk mendeteksi dini masalah kesehatan pada hewan peliharaan kesayangan Anda.",
+      description: "Pemeriksaan kesehatan menyeluruh untuk mendeteksi masalah kesehatan pada hewan peliharaan kesayangan Anda.",
       iconName: "Stethoscope",
     },
     {
       id: "grooming",
-      title: "Grooming Premium",
+      title: "Grooming",
       description: "Perawatan kebersihan mulai dari mandi, potong kuku, hingga pembersihan telinga menggunakan produk berkualitas.",
       iconName: "Scissors",
     },
     {
       id: "rawat-inap",
       title: "Rawat Inap & Isolasi",
-      description: "Fasilitas rawat inap yang nyaman dan diawasi ketat oleh paramedis profesional selama 24 jam penuh.",
+      description: "Fasilitas rawat inap yang nyaman dan diawasi oleh paramedis.",
       iconName: "BedDouble",
     },
     {
       id: "operasi",
       title: "Tindakan Bedah",
-      description: "Layanan bedah minor dan mayor, termasuk sterilisasi dengan peralatan steril dan modern.",
+      description: "Layanan bedah minor dan mayor, termasuk sterilisasi dengan peralatan steril yang memadai.",
       iconName: "Syringe",
     },
     {
@@ -76,28 +76,12 @@ const defaultLandingData = {
     schedule: string;
     image: string | null;
   }>,
-  facilities: [
-    {
-      id: "f-1",
-      name: "Ruang Periksa Steril",
-      image: "/images/fasilitas-periksa.jpg"
-    },
-    {
-      id: "f-2",
-      name: "Laboratorium & USG",
-      image: "/images/fasilitas-lab.jpg"
-    },
-    {
-      id: "f-3",
-      name: "Ruang Bedah Modern",
-      image: "/images/fasilitas-bedah.jpg"
-    },
-    {
-      id: "f-4",
-      name: "Pet Hotel & Rawat Inap",
-      image: "/images/fasilitas-inap.jpg"
-    }
-  ],
+  facilities: [] as Array<{
+    id: string;
+    name: string;
+    description?: string;
+    image: string | null;
+  }>,
   testimonials: [
     {
       id: "t-1",
@@ -216,6 +200,12 @@ export async function getLandingData() {
         schedule,
         image
       },
+      "facilities": *[_type == "facility"] | order(order asc) {
+        "id": _id,
+        name,
+        description,
+        image
+      },
       "testimonials": *[_type == "testimonial"] {
         "id": _id,
         name,
@@ -241,43 +231,50 @@ export async function getLandingData() {
 
     const sanityData = await client.fetch(query, {}, { next: { revalidate: 30 } }).catch(() => null);
 
-    const hero = sanityData?.hero 
+    const hero = sanityData?.hero
       ? {
-          badgeText: sanityData.hero.badgeText || null,
-          headline: sanityData.hero.headline || defaultLandingData.hero.headline,
-          highlight: sanityData.hero.highlight || defaultLandingData.hero.highlight,
-          description: sanityData.hero.description || defaultLandingData.hero.description,
-          image: sanityData.hero.image ? urlFor(sanityData.hero.image).width(1200).height(800).url() : defaultLandingData.hero.image,
-          cta: {
-            text: sanityData.hero.ctaText || defaultLandingData.hero.cta.text,
-            link: sanityData.hero.ctaLink || defaultLandingData.hero.cta.link,
-          }
+        badgeText: sanityData.hero.badgeText || null,
+        headline: sanityData.hero.headline || defaultLandingData.hero.headline,
+        highlight: sanityData.hero.highlight || defaultLandingData.hero.highlight,
+        description: sanityData.hero.description || defaultLandingData.hero.description,
+        image: sanityData.hero.image ? urlFor(sanityData.hero.image).width(1200).height(800).url() : defaultLandingData.hero.image,
+        cta: {
+          text: sanityData.hero.ctaText || defaultLandingData.hero.cta.text,
+          link: sanityData.hero.ctaLink || defaultLandingData.hero.cta.link,
         }
+      }
       : defaultLandingData.hero;
 
-    const promos = sanityData?.promos && sanityData.promos.length > 0 
-      ? sanityData.promos 
+    const promos = sanityData?.promos && sanityData.promos.length > 0
+      ? sanityData.promos
       : [];
 
     const doctors = sanityData?.doctors && sanityData.doctors.length > 0
       ? sanityData.doctors.map((d: any) => ({
-          ...d,
-          image: d.image ? urlFor(d.image).width(600).height(600).url() : null,
-        }))
+        ...d,
+        image: d.image ? urlFor(d.image).width(600).height(600).url() : null,
+      }))
+      : [];
+
+    const facilities = sanityData?.facilities && sanityData.facilities.length > 0
+      ? sanityData.facilities.map((f: any) => ({
+        ...f,
+        image: f.image ? urlFor(f.image).width(800).height(600).url() : null,
+      }))
       : [];
 
     const testimonials = sanityData?.testimonials && sanityData.testimonials.length > 0
       ? sanityData.testimonials.map((t: any) => ({
-          ...t,
-          photo: t.photo ? urlFor(t.photo).width(200).height(200).url() : null,
-        }))
+        ...t,
+        photo: t.photo ? urlFor(t.photo).width(200).height(200).url() : null,
+      }))
       : defaultLandingData.testimonials;
 
     const educationTips = sanityData?.educationTips && sanityData.educationTips.length > 0
       ? sanityData.educationTips.map((tip: any) => ({
-          ...tip,
-          image: tip.image ? urlFor(tip.image).width(600).height(400).url() : null,
-        }))
+        ...tip,
+        image: tip.image ? urlFor(tip.image).width(600).height(400).url() : null,
+      }))
       : defaultLandingData.educationTips;
 
     const faqs = sanityData?.faqs && sanityData.faqs.length > 0
@@ -289,6 +286,7 @@ export async function getLandingData() {
       hero,
       promos,
       doctors,
+      facilities,
       testimonials,
       educationTips,
       faqs,
