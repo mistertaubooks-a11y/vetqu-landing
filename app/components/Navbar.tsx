@@ -48,12 +48,12 @@ export default async function Navbar() {
         </div>
 
         <div className="flex items-center gap-2 order-1 md:order-3">
-          {/* Desktop CTA - Premium Glow & Shine */}
+          {/* Desktop CTA - Premium Warm Accent */}
           <a 
             href={landingData.hero.cta.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden md:flex relative group overflow-hidden bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-7 py-2.5 rounded-full text-[15px] font-extrabold shadow-[0_8px_20px_-6px_rgba(124,58,237,0.5)] hover:shadow-[0_12px_25px_-6px_rgba(124,58,237,0.6)] hover:-translate-y-0.5 transition-all duration-300"
+            className="hidden md:flex relative group overflow-hidden bg-orange-600 hover:bg-orange-700 text-white px-7 py-2.5 rounded-full text-[15px] font-extrabold shadow-[0_6px_18px_-4px_rgba(234,88,12,0.4)] hover:shadow-[0_10px_22px_-4px_rgba(234,88,12,0.5)] hover:-translate-y-0.5 transition-all duration-300"
           >
             <div className="absolute inset-0 w-1/4 h-full bg-white/20 skew-x-12 -translate-x-[250%] group-hover:animate-[shine_1.5s_ease-out]"></div>
             <span className="relative z-10 flex items-center gap-2">

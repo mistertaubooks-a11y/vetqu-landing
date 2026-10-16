@@ -45,7 +45,7 @@ export default async function HeroSection() {
                 href={landingData.hero.cta.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center px-7 py-4 text-base font-bold text-white bg-purple-700 rounded-2xl hover:bg-purple-800 shadow-[0_8px_20px_-4px_rgba(109,40,217,0.4)] hover:shadow-[0_12px_25px_-4px_rgba(109,40,217,0.5)] hover:-translate-y-0.5 transition-all duration-300"
+                className="inline-flex items-center justify-center px-7 py-4 text-base font-bold text-white bg-orange-600 hover:bg-orange-700 rounded-2xl shadow-[0_8px_20px_-4px_rgba(234,88,12,0.45)] hover:shadow-[0_12px_25px_-4px_rgba(234,88,12,0.55)] hover:-translate-y-0.5 transition-all duration-300"
               >
                 {landingData.hero.cta.text}
                 <ArrowRight className="ml-2 w-5 h-5" />
