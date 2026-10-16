@@ -24,7 +24,7 @@ export default async function Home() {
       <Navbar />
       <main className="min-h-screen bg-white text-gray-800 font-sans font-normal">
         <HeroSection />
-        <PromoSection />
+        <PromoSection promos={data.promos} />
         <ServicesSection />
         <HowItWorksSection />
         <TeamSection />
