@@ -46,21 +46,24 @@ export default async function TeamSection() {
                 Konsultasikan Kondisi Anabul dengan Dokter Jaga
               </h3>
               <p className="text-slate-600 leading-relaxed mb-6 text-sm">
-                Klinik VetQu didukung oleh tim dokter hewan umum dan paramedis yang bertugas setiap hari sesuai jadwal operasional klinik (08:00 – 21:00 WIB). Ingin tahu dokter siapa yang sedang bertugas hari ini?
+                Klinik VetQu didukung oleh tim dokter hewan umum dan paramedis yang bertugas setiap hari sesuai jam operasional klinik. Ingin tahu dokter siapa yang sedang bertugas hari ini?
               </p>
               <div className="flex flex-col sm:flex-row items-center gap-4">
                 <a
                   href={`https://wa.me/6281219818004?text=Halo%20Admin%20VetQu,%20saya%20ingin%20tanya%20jadwal%20dokter%20hewan%20yang%20standby%20hari%20ini`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 bg-purple-700 hover:bg-purple-800 text-white font-bold text-sm rounded-xl shadow-xs transition-colors"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 bg-orange-600 hover:bg-orange-700 text-white font-bold text-sm rounded-xl shadow-xs transition-colors"
                 >
                   Tanya Dokter Jaga Hari Ini
                   <ArrowRight className="w-4 h-4" />
                 </a>
-                <div className="text-xs text-slate-500 flex items-center gap-1.5">
-                  <CalendarClock className="w-4 h-4 text-purple-600" />
-                  <span>Senin – Minggu (08:00 – 21:00)</span>
+                <div className="text-xs text-slate-500 flex flex-col gap-0.5 sm:text-left text-center">
+                  <div className="flex items-center gap-1.5 font-medium text-slate-700">
+                    <CalendarClock className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>Senin – Jumat: 08:00 – 21:00 WIB</span>
+                  </div>
+                  <span className="text-[11px] text-slate-500 pl-5.5">Sabtu – Minggu: 08:00 – 17:00 WIB</span>
                 </div>
               </div>
             </div>

@@ -106,7 +106,7 @@ const defaultLandingData = {
     {
       id: "faq-1",
       question: "Apakah VetQu melayani kasus darurat (UGD) 24 Jam?",
-      answer: "Saat ini kami melayani pasien darurat selama jam operasional kami (08.00 - 20.00 WIB). Namun, untuk hewan yang sedang dalam perawatan inap, paramedis kami berjaga 24 jam penuh."
+      answer: "Saat ini kami melayani pasien darurat selama jam operasional kami (Senin–Jumat 08.00–21.00 WIB, Sabtu–Minggu 08.00–17.00 WIB). Namun, untuk hewan yang sedang dalam perawatan inap, paramedis kami berjaga 24 jam penuh."
     },
     {
       id: "faq-2",
