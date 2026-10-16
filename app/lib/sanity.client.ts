@@ -1,14 +1,22 @@
 import { createClient } from 'next-sanity';
 import imageUrlBuilder from '@sanity/image-url';
 
-const rawProjectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID?.trim();
-export const projectId = (rawProjectId && /^[a-z0-9-]+$/.test(rawProjectId)) ? rawProjectId : '9vg8e4g6';
+function sanitizeProjectId(input?: string): string {
+  if (!input) return '9vg8e4g6';
+  // Hapus semua tanda petik tunggal/ganda, whitespace, dan karakter selain a-z, 0-9, dan -
+  const cleaned = input.replace(/['"\s]/g, '').toLowerCase();
+  return /^[a-z0-9-]+$/.test(cleaned) ? cleaned : '9vg8e4g6';
+}
 
-const rawDataset = process.env.NEXT_PUBLIC_SANITY_DATASET?.trim();
-export const dataset = rawDataset || 'production';
+function sanitizeDataset(input?: string): string {
+  if (!input) return 'production';
+  const cleaned = input.replace(/['"\s]/g, '').toLowerCase();
+  return /^[a-z0-9~_-]+$/.test(cleaned) ? cleaned : 'production';
+}
 
-const rawApiVersion = process.env.NEXT_PUBLIC_SANITY_API_VERSION?.trim();
-export const apiVersion = rawApiVersion || '2024-01-01';
+export const projectId = sanitizeProjectId(process.env.NEXT_PUBLIC_SANITY_PROJECT_ID);
+export const dataset = sanitizeDataset(process.env.NEXT_PUBLIC_SANITY_DATASET);
+export const apiVersion = '2024-01-01';
 
 export const client = createClient({
   projectId,

@@ -8,11 +8,20 @@ import { educationTipType } from './sanity/schemas/educationTip';
 import { faqType } from './sanity/schemas/faq';
 import { facilityType } from './sanity/schemas/facility';
 
-const rawProjectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID?.trim();
-const projectId = (rawProjectId && /^[a-z0-9-]+$/.test(rawProjectId)) ? rawProjectId : '9vg8e4g6';
+function sanitizeProjectId(input?: string): string {
+  if (!input) return '9vg8e4g6';
+  const cleaned = input.replace(/['"\s]/g, '').toLowerCase();
+  return /^[a-z0-9-]+$/.test(cleaned) ? cleaned : '9vg8e4g6';
+}
 
-const rawDataset = process.env.NEXT_PUBLIC_SANITY_DATASET?.trim();
-const dataset = rawDataset || 'production';
+function sanitizeDataset(input?: string): string {
+  if (!input) return 'production';
+  const cleaned = input.replace(/['"\s]/g, '').toLowerCase();
+  return /^[a-z0-9~_-]+$/.test(cleaned) ? cleaned : 'production';
+}
+
+const projectId = sanitizeProjectId(process.env.NEXT_PUBLIC_SANITY_PROJECT_ID);
+const dataset = sanitizeDataset(process.env.NEXT_PUBLIC_SANITY_DATASET);
 
 export default defineConfig({
   basePath: '/studio',
