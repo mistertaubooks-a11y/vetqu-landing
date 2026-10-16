@@ -13,7 +13,7 @@ export default async function HeroSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           
           {/* Kolom Kiri: Teks & Nilai Utama */}
-          <div className="lg:col-span-7 text-center lg:text-left">
+          <div className="lg:col-span-6 text-center lg:text-left">
             {landingData.hero.badgeText ? (
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 text-slate-800 font-semibold text-xs mb-6 border border-slate-200">
                 <span className="w-1.5 h-1.5 rounded-full bg-purple-600"></span>
@@ -26,7 +26,7 @@ export default async function HeroSection() {
               </div>
             )}
 
-            <h1 className="text-4xl sm:text-5xl lg:text-[54px] font-black text-slate-900 mb-6 leading-[1.15] tracking-tight">
+            <h1 className="text-4xl sm:text-5xl lg:text-[50px] font-black text-slate-900 mb-6 leading-[1.15] tracking-tight">
               {landingData.hero.headline} <br />
               <span className="text-purple-700 relative inline-block">
                 {landingData.hero.highlight}
@@ -36,7 +36,7 @@ export default async function HeroSection() {
               </span>
             </h1>
 
-            <p className="text-lg text-slate-600 mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal">
+            <p className="text-base sm:text-lg text-slate-600 mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal">
               {landingData.hero.description}
             </p>
 
@@ -71,13 +71,13 @@ export default async function HeroSection() {
             </div>
           </div>
           
-          {/* Kolom Kanan: Foto Utama & Frame Elegan */}
-          <div className="lg:col-span-5 relative">
-            <div className="relative w-full h-[420px] sm:h-[480px] lg:h-[500px] rounded-3xl overflow-hidden shadow-[0_20px_50px_-15px_rgba(0,0,0,0.12)] border-4 border-white bg-slate-100 group">
+          {/* Kolom Kanan: Foto Utama & Frame Elegan Landscape */}
+          <div className="lg:col-span-6 relative">
+            <div className="relative w-full aspect-[4/3] sm:aspect-[16/11] rounded-3xl overflow-hidden shadow-[0_20px_50px_-15px_rgba(0,0,0,0.12)] border-4 border-white bg-slate-100 group">
               <img 
                 src={landingData.hero.image || "/images/hero-vetqu.jpg"} 
                 alt={landingData.hero.headline} 
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105" 
               />
             </div>
           </div>
