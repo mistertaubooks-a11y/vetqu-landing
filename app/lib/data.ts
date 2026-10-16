@@ -157,7 +157,7 @@ const defaultLandingData = {
   ],
   contact: {
     whatsapp: "+62 812-1981-8004",
-    email: "hello@vetqu.id",
+    email: "halo@vetqu.id",
     address: "Ruko Avenue, Jl. Raya Grand Batavia No.20 Blok BA, Sindangsari, Kec. Ps. Kemis, Kabupaten Tangerang, Banten 15560",
     mapsLink: "https://maps.app.goo.gl/uLSiBr2tnHjWJCAJ8",
     hours: "Senin-Jumat: 08:00-21:00\nSabtu-Minggu: 08:00-17:00\n(Hari Besar Islam Libur)",
