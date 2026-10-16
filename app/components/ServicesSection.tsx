@@ -17,7 +17,7 @@ export default async function ServicesSection() {
               Layanan Medis & Perawatan Anabul
             </h2>
             <p className="text-base md:text-lg text-slate-500 mt-2 max-w-xl">
-              Dilengkapi standar medis veteriner terkini dan peralatan steril untuk kenyamanan hewan kesayangan Anda.
+              Dilengkapi standar medis veteriner dan peralatan steril untuk kenyamanan hewan kesayangan Anda.
             </p>
           </div>
 
