@@ -94,7 +94,7 @@ export default async function Footer() {
                   href={landingData.contact.mapsLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="pointer-events-auto inline-flex items-center gap-2 justify-center px-6 py-3 bg-purple-600 hover:bg-purple-500 rounded-xl transition-transform hover:scale-105 font-semibold text-white shadow-xl shadow-purple-900/30"
+                  className="pointer-events-auto inline-flex items-center gap-2 justify-center px-6 py-3 bg-orange-600 hover:bg-orange-700 rounded-xl transition-transform hover:scale-105 font-semibold text-white shadow-xl shadow-slate-900/40"
                 >
                   <MapPin className="w-5 h-5" />
                   Buka di Aplikasi Maps

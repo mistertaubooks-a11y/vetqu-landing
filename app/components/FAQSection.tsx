@@ -38,7 +38,7 @@ export default function FAQSection({ faqs, ctaLink }: { faqs: any[], ctaLink: st
                 <div 
                   className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
                 >
-                  <div className="p-6 pt-0 text-slate-600 leading-relaxed border-t border-slate-50 mx-6">
+                  <div className="p-6 pt-0 text-slate-600 leading-relaxed border-t border-slate-100 mx-6">
                     {faq.answer}
                   </div>
                 </div>
@@ -47,16 +47,20 @@ export default function FAQSection({ faqs, ctaLink }: { faqs: any[], ctaLink: st
           })}
         </div>
         
-        <div className="mt-12 text-center p-8 bg-purple-50 rounded-3xl border border-purple-100 relative z-10">
-          <h3 className="text-xl font-bold text-[#384959] mb-2">Punya pertanyaan lain?</h3>
-          <p className="text-slate-600 mb-6">Tim admin kami siap membantu Anda menjawab segala kebingungan seputar anabul Anda.</p>
+        <div className="mt-14 p-8 bg-white rounded-3xl border border-slate-200/80 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left relative z-10">
+          <div>
+            <h3 className="text-xl font-bold text-[#384959] mb-1.5">Masih Ada Pertanyaan yang Belum Terjawab?</h3>
+            <p className="text-slate-500 text-sm max-w-xl">
+              Admin klinik VetQu siap membantu menjelaskan estimasi biaya, ketersediaan jadwal dokter, dan panduan persiapan sebelum membawa anabul.
+            </p>
+          </div>
           <a 
             href={ctaLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center px-6 py-3 font-bold text-white bg-purple-600 rounded-xl hover:bg-purple-700 transition-colors"
+            className="inline-flex items-center justify-center px-6 py-3 font-semibold text-white bg-orange-600 hover:bg-orange-700 rounded-xl transition-all shadow-sm shrink-0 hover:scale-105"
           >
-            Tanya via WhatsApp
+            Chat Admin via WA
           </a>
         </div>
       </div>
