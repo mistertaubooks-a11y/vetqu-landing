@@ -1,6 +1,6 @@
 import React from 'react';
 import { getLandingData } from '../lib/data';
-import { ArrowRight, ShieldCheck, Heart, Sparkles } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Heart } from 'lucide-react';
 
 export default async function HeroSection() {
   const landingData = await getLandingData();
@@ -15,14 +15,14 @@ export default async function HeroSection() {
           {/* Kolom Kiri: Teks & Nilai Utama */}
           <div className="lg:col-span-7 text-center lg:text-left">
             {landingData.hero.badgeText ? (
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 text-amber-800 font-semibold text-xs mb-6 border border-amber-200/80 shadow-xs">
-                <Sparkles className="w-3.5 h-3.5 text-amber-600" />
-                {landingData.hero.badgeText}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 text-slate-800 font-semibold text-xs mb-6 border border-slate-200">
+                <span className="w-1.5 h-1.5 rounded-full bg-purple-600"></span>
+                <span>{landingData.hero.badgeText}</span>
               </div>
             ) : (
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-50 text-purple-800 font-semibold text-xs mb-6 border border-purple-200/60 shadow-xs">
-                <span className="w-2 h-2 rounded-full bg-purple-600"></span>
-                Klinik Hewan & Praktek Mandiri Tangerang
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 text-slate-800 font-semibold text-xs mb-6 border border-slate-200">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+                <span>Klinik Hewan & Praktek Mandiri Tangerang</span>
               </div>
             )}
 
