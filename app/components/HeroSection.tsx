@@ -1,64 +1,104 @@
 import React from 'react';
 import { getLandingData } from '../lib/data';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Heart, Sparkles } from 'lucide-react';
 
 export default async function HeroSection() {
   const landingData = await getLandingData();
   return (
-    <section id="beranda" className="relative pt-24 pb-20 lg:pt-32 lg:pb-32 overflow-hidden bg-gradient-to-br from-purple-100/50 via-white to-white">
-      {/* Background Decor */}
-      <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-orange-400 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
-      <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-      
+    <section id="beranda" className="relative pt-28 pb-20 lg:pt-36 lg:pb-28 overflow-hidden bg-[#FAF9F6]">
+      {/* Subtle organic texture pattern */}
+      <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#581c87_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none"></div>
+
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="text-center lg:text-left">
-            {landingData.hero.badgeText && (
-              <div className="inline-flex items-center px-3 py-1 rounded-full bg-orange-50 text-orange-600 font-semibold text-sm mb-6 border border-orange-100">
-                <span className="flex w-2 h-2 rounded-full bg-orange-500 mr-2 animate-pulse"></span>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          
+          {/* Kolom Kiri: Teks & Nilai Utama */}
+          <div className="lg:col-span-7 text-center lg:text-left">
+            {landingData.hero.badgeText ? (
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 text-amber-800 font-semibold text-xs mb-6 border border-amber-200/80 shadow-xs">
+                <Sparkles className="w-3.5 h-3.5 text-amber-600" />
                 {landingData.hero.badgeText}
               </div>
+            ) : (
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-50 text-purple-800 font-semibold text-xs mb-6 border border-purple-200/60 shadow-xs">
+                <span className="w-2 h-2 rounded-full bg-purple-600"></span>
+                Klinik Hewan & Praktek Mandiri Tangerang
+              </div>
             )}
-            <h1 className="text-4xl md:text-6xl font-extrabold text-[#384959] mb-6 leading-tight tracking-tight">
+
+            <h1 className="text-4xl sm:text-5xl lg:text-[54px] font-black text-slate-900 mb-6 leading-[1.15] tracking-tight">
               {landingData.hero.headline} <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-orange-500">
+              <span className="text-purple-700 relative inline-block">
                 {landingData.hero.highlight}
+                <svg className="absolute -bottom-2 left-0 w-full h-3 text-amber-400 opacity-80" viewBox="0 0 100 12" preserveAspectRatio="none">
+                  <path d="M0,8 Q50,0 100,8" stroke="currentColor" strokeWidth="3" fill="none" strokeLinecap="round" />
+                </svg>
               </span>
             </h1>
-            <p className="text-lg text-slate-600 mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+
+            <p className="text-lg text-slate-600 mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal">
               {landingData.hero.description}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+
+            <div className="flex flex-col sm:flex-row gap-3.5 justify-center lg:justify-start mb-10">
               <a 
                 href={landingData.hero.cta.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white bg-purple-600 rounded-2xl hover:bg-purple-700 hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+                className="inline-flex items-center justify-center px-7 py-4 text-base font-bold text-white bg-purple-700 rounded-2xl hover:bg-purple-800 shadow-[0_8px_20px_-4px_rgba(109,40,217,0.4)] hover:shadow-[0_12px_25px_-4px_rgba(109,40,217,0.5)] hover:-translate-y-0.5 transition-all duration-300"
               >
                 {landingData.hero.cta.text}
                 <ArrowRight className="ml-2 w-5 h-5" />
               </a>
               <a 
                 href="#layanan"
-                className="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-slate-700 bg-white border-2 border-slate-200 rounded-2xl hover:border-slate-300 hover:bg-slate-50 transition-all duration-300"
+                className="inline-flex items-center justify-center px-7 py-4 text-base font-bold text-slate-700 bg-white border border-slate-300/80 rounded-2xl hover:border-purple-300 hover:bg-purple-50/40 hover:text-purple-900 transition-all duration-300 shadow-xs"
               >
-                Lihat Layanan
+                Lihat Layanan Kami
               </a>
+            </div>
+
+            {/* Micro Social Proof & Trust Badges */}
+            <div className="pt-6 border-t border-slate-200/80 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-xs text-slate-600 font-medium">
+              <div className="flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                <span>Dokter Berizin Resmi (SIPH)</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Heart className="w-4 h-4 text-rose-500" />
+                <span>Pendekatan Kasih Sayang (Fear-Free)</span>
+              </div>
             </div>
           </div>
           
-          <div className="relative w-full h-[400px] lg:h-[550px] rounded-3xl overflow-hidden shadow-2xl bg-slate-100">
-            {landingData.hero.image ? (
-              <img src={landingData.hero.image} alt={landingData.hero.headline} className="w-full h-full object-cover" />
-            ) : (
-              <>
-                <div className="absolute inset-0 bg-gradient-to-tr from-purple-300 to-orange-200 opacity-20"></div>
-                <div className="flex items-center justify-center h-full text-slate-400 font-medium">
-                  [Belum ada gambar hero]
+          {/* Kolom Kanan: Foto Utama & Frame Elegan */}
+          <div className="lg:col-span-5 relative">
+            <div className="relative w-full h-[420px] sm:h-[480px] lg:h-[500px] rounded-3xl overflow-hidden shadow-[0_20px_50px_-15px_rgba(0,0,0,0.12)] border-4 border-white bg-slate-100 group">
+              <img 
+                src={landingData.hero.image || "/images/hero-vetqu.jpg"} 
+                alt={landingData.hero.headline} 
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/50 via-transparent to-transparent"></div>
+              
+              {/* Trust Badge Nyata di atas Foto */}
+              <div className="absolute bottom-5 left-5 right-5 bg-white/95 backdrop-blur-md p-4 rounded-2xl border border-white/80 shadow-md flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-purple-100 flex items-center justify-center text-purple-700 font-bold text-lg">
+                    🐾
+                  </div>
+                  <div>
+                    <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Klinik VetQu</p>
+                    <p className="text-sm font-bold text-slate-800">Grand Batavia, Tangerang</p>
+                  </div>
                 </div>
-              </>
-            )}
+                <div className="flex items-center gap-1.5 text-xs font-bold text-amber-700 bg-amber-50 px-3 py-1.5 rounded-xl border border-amber-200/60">
+                  <span>⭐ 4.9 Rating</span>
+                </div>
+              </div>
+            </div>
           </div>
+
         </div>
       </div>
     </section>

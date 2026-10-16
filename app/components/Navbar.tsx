@@ -9,7 +9,7 @@ export default async function Navbar() {
   
   const navLinks = [
     { name: 'Beranda', href: '#beranda' },
-    { name: 'Promo', href: '#promo' },
+    ...(landingData.promos && landingData.promos.length > 0 ? [{ name: 'Promo', href: '#promo' }] : []),
     { name: 'Layanan', href: '#layanan' },
     { name: 'Dokter', href: '#dokter' },
     { name: 'Edukasi', href: '#edukasi' },

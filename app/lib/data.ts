@@ -8,6 +8,7 @@ const defaultLandingData = {
       text: "Konsultasi via WA",
       link: "https://wa.me/6281219818004?text=Halo%20Kak,%20saya%20ingin%20booking%20layanan%20atau%20konsultasi%20untuk%20anabul%20saya",
     },
+    image: null as string | null,
   },
   howItWorks: [
     {
@@ -67,40 +68,14 @@ const defaultLandingData = {
       iconName: "Microscope",
     }
   ],
-  doctors: [
-    {
-      id: "dr-1",
-      name: "drh. Sarah Wijaya",
-      specialization: "Spesialis Penyakit Dalam",
-      experience: "8 Tahun Pengalaman",
-      schedule: "Senin, Rabu, Jumat (09:00 - 15:00)",
-      image: "/images/doctor1.jpg", 
-    },
-    {
-      id: "dr-2",
-      name: "drh. Budi Santoso",
-      specialization: "Spesialis Bedah Veteriner",
-      experience: "12 Tahun Pengalaman",
-      schedule: "Selasa, Kamis, Sabtu (10:00 - 17:00)",
-      image: "/images/doctor2.jpg",
-    },
-    {
-      id: "dr-3",
-      name: "drh. Anissa Putri",
-      specialization: "Dokter Hewan Umum & Eksotik",
-      experience: "5 Tahun Pengalaman",
-      schedule: "Senin - Sabtu (15:00 - 20:00)",
-      image: "/images/doctor3.jpg",
-    },
-    {
-      id: "dr-4",
-      name: "drh. Kevin Pratama",
-      specialization: "Spesialis Gigi Hewan",
-      experience: "6 Tahun Pengalaman",
-      schedule: "Kamis & Sabtu (10:00 - 15:00)",
-      image: "/images/doctor4.jpg",
-    }
-  ],
+  doctors: [] as Array<{
+    id: string;
+    name: string;
+    specialization: string;
+    experience: string;
+    schedule: string;
+    image: string | null;
+  }>,
   facilities: [
     {
       id: "f-1",
@@ -165,24 +140,14 @@ const defaultLandingData = {
       answer: "Hewan harus dalam keadaan sehat, sudah divaksin lengkap (membawa buku vaksin), bebas kutu, dan bebas jamur. Hal ini untuk menjaga kesehatan seluruh hewan peliharaan di area pet hotel kami."
     }
   ],
-  promos: [
-    {
-      id: "promo-1",
-      title: "Diskon Vaksin Kucing",
-      description: "Diskon 20% untuk paket vaksin F3/F4. Lindungi si meong dari virus mematikan sejak dini.",
-      validUntil: "Akhir Bulan Ini",
-      type: "Vaksinasi",
-      iconName: "Syringe"
-    },
-    {
-      id: "promo-2",
-      title: "Grooming Sehat",
-      description: "Gratis potong kuku dan bersihkan telinga untuk setiap pengambilan paket Full Grooming.",
-      validUntil: "Setiap Selasa & Rabu",
-      type: "Grooming",
-      iconName: "Sparkles"
-    }
-  ],
+  promos: [] as Array<{
+    id: string;
+    title: string;
+    description: string;
+    validUntil: string;
+    type: string;
+    iconName: string;
+  }>,
   educationTips: [
     {
       id: "tip-1",
@@ -220,44 +185,116 @@ const defaultLandingData = {
   }
 };
 
-function replaceLocalhostImage(url: string | undefined) {
-  if (!url) return url;
-  return url.replace('http://localhost:4000/uploads/', '/backend-uploads/');
-}
+import { client, urlFor } from './sanity.client';
 
 export async function getLandingData() {
   try {
-    const res = await fetch('http://localhost:4000/api/v1/public/landing-data', {
-      cache: 'no-store' // Hapus cache agar data selalu real-time dengan CMS
-    });
-    
-    if (!res.ok) {
-      console.warn("Failed to fetch landing data from VetQu Next backend. Using default data.");
-      return defaultLandingData;
-    }
-    
-    const json = await res.json();
-    const dynamicData = json.data;
-    
-    // Merge dynamic data with static layout data
+    // 1. Fetch seluruh data dinamis dari Sanity
+    const query = `{
+      "hero": *[_type == "heroSettings"][0] {
+        badgeText,
+        headline,
+        highlight,
+        description,
+        image,
+        ctaText,
+        ctaLink
+      },
+      "promos": *[_type == "promo" && active == true] {
+        "id": _id,
+        title,
+        description,
+        type,
+        validUntil,
+        "iconName": "Sparkles"
+      },
+      "doctors": *[_type == "doctor"] | order(order asc) {
+        "id": _id,
+        name,
+        specialization,
+        experience,
+        schedule,
+        image
+      },
+      "testimonials": *[_type == "testimonial"] {
+        "id": _id,
+        name,
+        pet,
+        text,
+        rating,
+        photo
+      },
+      "educationTips": *[_type == "educationTip"] | order(order asc) {
+        "id": _id,
+        title,
+        excerpt,
+        readTime,
+        link,
+        image
+      },
+      "faqs": *[_type == "faq"] | order(order asc) {
+        "id": _id,
+        question,
+        answer
+      }
+    }`;
+
+    const sanityData = await client.fetch(query, {}, { next: { revalidate: 30 } }).catch(() => null);
+
+    const hero = sanityData?.hero 
+      ? {
+          badgeText: sanityData.hero.badgeText || null,
+          headline: sanityData.hero.headline || defaultLandingData.hero.headline,
+          highlight: sanityData.hero.highlight || defaultLandingData.hero.highlight,
+          description: sanityData.hero.description || defaultLandingData.hero.description,
+          image: sanityData.hero.image ? urlFor(sanityData.hero.image).width(1200).height(800).url() : defaultLandingData.hero.image,
+          cta: {
+            text: sanityData.hero.ctaText || defaultLandingData.hero.cta.text,
+            link: sanityData.hero.ctaLink || defaultLandingData.hero.cta.link,
+          }
+        }
+      : defaultLandingData.hero;
+
+    const promos = sanityData?.promos && sanityData.promos.length > 0 
+      ? sanityData.promos 
+      : [];
+
+    const doctors = sanityData?.doctors && sanityData.doctors.length > 0
+      ? sanityData.doctors.map((d: any) => ({
+          ...d,
+          image: d.image ? urlFor(d.image).width(600).height(600).url() : null,
+        }))
+      : [];
+
+    const testimonials = sanityData?.testimonials && sanityData.testimonials.length > 0
+      ? sanityData.testimonials.map((t: any) => ({
+          ...t,
+          photo: t.photo ? urlFor(t.photo).width(200).height(200).url() : null,
+        }))
+      : defaultLandingData.testimonials;
+
+    const educationTips = sanityData?.educationTips && sanityData.educationTips.length > 0
+      ? sanityData.educationTips.map((tip: any) => ({
+          ...tip,
+          image: tip.image ? urlFor(tip.image).width(600).height(400).url() : null,
+        }))
+      : defaultLandingData.educationTips;
+
+    const faqs = sanityData?.faqs && sanityData.faqs.length > 0
+      ? sanityData.faqs
+      : defaultLandingData.faqs;
+
     return {
       ...defaultLandingData,
-      hero: dynamicData.hero 
-        ? { ...dynamicData.hero, image: replaceLocalhostImage(dynamicData.hero.image) }
-        : defaultLandingData.hero,
-      facilities: (dynamicData.facilities && dynamicData.facilities.length > 0) 
-        ? dynamicData.facilities.map((f: any) => ({...f, image: replaceLocalhostImage(f.image)}))
-        : defaultLandingData.facilities,
-      doctors: dynamicData.doctors 
-        ? dynamicData.doctors.map((d: any) => ({...d, image: replaceLocalhostImage(d.image)}))
-        : defaultLandingData.doctors,
-      services: dynamicData.services || defaultLandingData.services,
-      promos: dynamicData.promos || defaultLandingData.promos,
-      educationTips: dynamicData.educationTips || defaultLandingData.educationTips,
-      testimonials: (dynamicData.testimonials && dynamicData.testimonials.length > 0) ? dynamicData.testimonials : defaultLandingData.testimonials,
+      hero,
+      promos,
+      doctors,
+      testimonials,
+      educationTips,
+      faqs,
     };
   } catch (error) {
-    console.warn("Error fetching landing data, falling back to default:", error);
+    console.warn("Using fallback landing data:", error);
     return defaultLandingData;
   }
 }

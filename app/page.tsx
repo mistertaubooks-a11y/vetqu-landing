@@ -25,8 +25,8 @@ export default async function Home() {
       <main className="min-h-screen bg-white text-gray-800 font-sans font-normal">
         <HeroSection />
         <PromoSection />
-        <HowItWorksSection />
         <ServicesSection />
+        <HowItWorksSection />
         <TeamSection />
         <FacilitySection />
         <TestimonialSection />
