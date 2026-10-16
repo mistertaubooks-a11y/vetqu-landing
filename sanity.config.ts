@@ -8,8 +8,11 @@ import { educationTipType } from './sanity/schemas/educationTip';
 import { faqType } from './sanity/schemas/faq';
 import { facilityType } from './sanity/schemas/facility';
 
-const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '9vg8e4g6';
-const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production';
+const rawProjectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID?.trim();
+const projectId = (rawProjectId && /^[a-z0-9-]+$/.test(rawProjectId)) ? rawProjectId : '9vg8e4g6';
+
+const rawDataset = process.env.NEXT_PUBLIC_SANITY_DATASET?.trim();
+const dataset = rawDataset || 'production';
 
 export default defineConfig({
   basePath: '/studio',
