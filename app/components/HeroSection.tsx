@@ -79,23 +79,6 @@ export default async function HeroSection() {
                 alt={landingData.hero.headline} 
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/50 via-transparent to-transparent"></div>
-              
-              {/* Trust Badge Nyata di atas Foto */}
-              <div className="absolute bottom-5 left-5 right-5 bg-white/95 backdrop-blur-md p-4 rounded-2xl border border-white/80 shadow-md flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-purple-100 flex items-center justify-center text-purple-700 font-bold text-lg">
-                    🐾
-                  </div>
-                  <div>
-                    <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Klinik VetQu</p>
-                    <p className="text-sm font-bold text-slate-800">Grand Batavia, Tangerang</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-1.5 text-xs font-bold text-amber-700 bg-amber-50 px-3 py-1.5 rounded-xl border border-amber-200/60">
-                  <span>⭐ 4.9 Rating</span>
-                </div>
-              </div>
             </div>
           </div>
 
