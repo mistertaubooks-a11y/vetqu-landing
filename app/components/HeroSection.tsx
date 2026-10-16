@@ -62,7 +62,7 @@ export default async function HeroSection() {
             <div className="pt-6 border-t border-slate-200/80 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-xs text-slate-600 font-medium">
               <div className="flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                <span>Dokter Berizin Resmi (SIPH)</span>
+                <span>Dokter Berizin Resmi (SIP DRH)</span>
               </div>
               <div className="flex items-center gap-2">
                 <Heart className="w-4 h-4 text-rose-500" />

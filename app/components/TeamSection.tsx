@@ -18,7 +18,7 @@ export default async function TeamSection() {
             Dokter & Paramedis VetQu
           </h2>
           <p className="text-lg text-slate-500 max-w-2xl mx-auto">
-            Kesehatan anabul Anda ditangani langsung oleh praktisi veteriner berizin (SIPH) yang berdedikasi dan penuh kasih sayang.
+            Kesehatan anabul Anda ditangani langsung oleh praktisi veteriner berizin (SIP DRH) yang berdedikasi dan penuh kasih sayang.
           </p>
         </div>
 
@@ -40,7 +40,7 @@ export default async function TeamSection() {
             <div className="flex-1">
               <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-800 bg-emerald-50 px-3 py-1 rounded-full mb-3 border border-emerald-200">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                Dokter Hewan Berizin Resmi (SIPH)
+                Dokter Hewan Berizin Resmi (SIP DRH)
               </div>
               <h3 className="text-2xl font-bold text-slate-900 mb-2">
                 Konsultasikan Kondisi Anabul dengan Dokter Jaga
