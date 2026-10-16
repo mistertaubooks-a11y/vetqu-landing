@@ -1,7 +1,6 @@
 import React from 'react';
 import { getLandingData } from '../lib/data';
 import * as LucideIcons from 'lucide-react';
-import { ArrowRight } from 'lucide-react';
 
 export default async function HowItWorksSection() {
   const landingData = await getLandingData();

@@ -1,6 +1,6 @@
 import React from 'react';
 import { getLandingData } from '../lib/data';
-import { BookOpen, Clock, ArrowUpRight } from 'lucide-react';
+import { Clock, ArrowUpRight } from 'lucide-react';
 
 export default async function EducationSection() {
   const landingData = await getLandingData();

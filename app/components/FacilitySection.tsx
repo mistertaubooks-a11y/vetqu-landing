@@ -1,6 +1,6 @@
 import React from 'react';
 import { getLandingData } from '../lib/data';
-import { Building2, Sparkles } from 'lucide-react';
+import { Building2 } from 'lucide-react';
 
 export default async function FacilitySection() {
   const landingData = await getLandingData();

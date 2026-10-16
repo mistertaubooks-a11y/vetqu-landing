@@ -1,8 +1,4 @@
-import React from 'react';
-import { getLandingData } from '../lib/data';
-
-export default async function FloatingWA() {
-  const landingData = await getLandingData();
+export default function FloatingWA() {
   return (
     <a
       href="https://wa.me/6281219818004?text=Halo%20VetQu,%20saya%20mau%20tanya-tanya%20seputar%20layanan%20klinik%20hewan..."
