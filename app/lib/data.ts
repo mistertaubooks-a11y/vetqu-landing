@@ -5,7 +5,7 @@ const defaultLandingData = {
     highlight: "Anabul Anda",
     description: "Pelayanan veteriner yang Profesional & Modern dengan pendekatan yang Penuh Kasih Sayang. Kami siap menjaga kesehatan dan kebahagiaan hewan kesayangan Anda.",
     cta: {
-      text: "Konsultasi via WA",
+      text: "Reservasi via WA",
       link: "https://wa.me/6281219818004?text=Halo%20Kak,%20saya%20ingin%20booking%20layanan%20atau%20konsultasi%20untuk%20anabul%20saya",
     },
     image: null as string | null,

@@ -46,7 +46,7 @@ export const heroType = defineType({
       name: 'ctaText',
       title: 'Teks Tombol Utama',
       type: 'string',
-      initialValue: 'Konsultasi via WA',
+      initialValue: 'Reservasi via WA',
     }),
     defineField({
       name: 'ctaLink',
