@@ -106,17 +106,17 @@ const defaultLandingData = {
     {
       id: "faq-1",
       question: "Apakah VetQu melayani kasus darurat (UGD) 24 Jam?",
-      answer: "Saat ini kami melayani pasien darurat selama jam operasional kami (Senin–Jumat 08.00–21.00 WIB, Sabtu–Minggu 08.00–17.00 WIB). Namun, untuk hewan yang sedang dalam perawatan inap, paramedis kami berjaga 24 jam penuh."
+      answer: "Saat ini kami melayani pasien darurat selama jam operasional kami (Senin–Jumat 08.00–21.00 WIB, Sabtu–Minggu 08.00–17.00 WIB). Namun, untuk hewan yang sedang dalam perawatan inap, paramedis kami menginap di klinik."
     },
     {
       id: "faq-2",
       question: "Apakah harus selalu membuat janji (reservasi) sebelum datang?",
-      answer: "Untuk kenyamanan Anda dan menghindari antrean panjang, kami sangat menyarankan untuk reservasi H-1 via WhatsApp. Namun, kami tetap menerima walk-in (datang langsung) selama slot dokter masih tersedia."
+      answer: "Untuk kenyamanan Anda dan menghindari antrean, kami sangat menyarankan untuk reservasi H-1 via WhatsApp. Namun, kami tetap menerima walk-in (datang langsung)."
     },
     {
       id: "faq-3",
       question: "Apakah menyediakan layanan House Call (Panggilan ke rumah)?",
-      answer: "Ya, kami menyediakan layanan House Call untuk area maksimal 10 KM dari klinik, khusus untuk pemeriksaan rutin dan vaksinasi. Silakan hubungi admin kami untuk informasi biaya lebih lanjut."
+      answer: "Ya, kami menyediakan layanan House Call, khusus untuk pemeriksaan rutin dan vaksinasi. Silakan hubungi admin kami untuk informasi biaya lebih lanjut."
     },
     {
       id: "faq-4",
@@ -135,24 +135,30 @@ const defaultLandingData = {
   educationTips: [
     {
       id: "tip-1",
+      slug: "kapan-anabul-harus-divaksin",
       title: "Kapan Anabul Harus Divaksin?",
-      excerpt: "Vaksinasi sangat krusial untuk mencegah virus parvo dan distemper. Kapan usia yang ideal?",
+      author: "drh. Taufik Hidayat",
+      excerpt: "Vaksinasi sangat krusial untuk mencegah virus mematikan seperti Parvo dan Distemper. Kapan usia yang ideal untuk vaksin pertama?",
       readTime: "3 Min Read",
-      link: "https://instagram.com/vetquanimalcare"
+      link: "/edukasi/kapan-anabul-harus-divaksin"
     },
     {
       id: "tip-2",
-      title: "Tanda Bahaya pada Kucing",
-      excerpt: "Jangan abaikan jika kucing Anda tiba-tiba tidak mau makan, muntah, atau lemas.",
+      slug: "tanda-bahaya-pada-kucing",
+      title: "Tanda Bahaya pada Kucing yang Perlu Segera ke Dokter",
+      author: "drh. Bagas Maulana P.",
+      excerpt: "Jangan abaikan jika kucing Anda tiba-tiba tidak mau makan, muntah berulang, lemas, atau tidak bisa buang air kecil.",
       readTime: "4 Min Read",
-      link: "https://instagram.com/vetquanimalcare"
+      link: "/edukasi/tanda-bahaya-pada-kucing"
     },
     {
       id: "tip-3",
-      title: "Pentingnya Obat Cacing Rutin",
-      excerpt: "Cacingan tidak selalu terlihat secara fisik, namun bisa menyebabkan malnutrisi kronis.",
-      readTime: "2 Min Read",
-      link: "https://instagram.com/vetquanimalcare"
+      slug: "pentingnya-obat-cacing-rutin",
+      title: "Pentingnya Pemberian Obat Cacing Rutin untuk Anabul",
+      author: "Tim Dokter Hewan VetQu",
+      excerpt: "Cacingan tidak selalu terlihat langsung di kotoran, namun dapat menyebabkan malnutrisi kronis, bulu kusam, dan anemia.",
+      readTime: "3 Min Read",
+      link: "/edukasi/pentingnya-obat-cacing-rutin"
     }
   ],
   contact: {
@@ -217,10 +223,12 @@ export async function getLandingData() {
       "educationTips": *[_type == "educationTip"] | order(order asc) {
         "id": _id,
         title,
+        "slug": slug.current,
+        author,
         excerpt,
         readTime,
-        link,
-        image
+        image,
+        content
       },
       "faqs": *[_type == "faq"] | order(order asc) {
         "id": _id,
@@ -273,7 +281,9 @@ export async function getLandingData() {
     const educationTips = sanityData?.educationTips && sanityData.educationTips.length > 0
       ? sanityData.educationTips.map((tip: any) => ({
         ...tip,
-        image: tip.image ? urlFor(tip.image).width(600).height(400).url() : null,
+        slug: tip.slug || null,
+        author: tip.author || "Tim Dokter Hewan VetQu",
+        image: tip.image ? urlFor(tip.image).width(1200).height(675).url() : null,
       }))
       : defaultLandingData.educationTips;
 
@@ -295,4 +305,48 @@ export async function getLandingData() {
     console.warn("Using fallback landing data:", error);
     return defaultLandingData;
   }
+}
+
+export async function getEducationArticleBySlug(slug: string) {
+  try {
+    const query = `*[_type == "educationTip" && slug.current == $slug][0] {
+      "id": _id,
+      title,
+      "slug": slug.current,
+      author,
+      excerpt,
+      readTime,
+      image,
+      content,
+      _createdAt
+    }`;
+
+    const article = await client.fetch(query, { slug }, { next: { revalidate: 30 } }).catch(() => null);
+
+    if (article) {
+      return {
+        ...article,
+        author: article.author || "Tim Dokter Hewan VetQu",
+        image: article.image ? urlFor(article.image).width(1200).height(675).url() : null,
+      };
+    }
+  } catch (e) {
+    console.warn("Error fetching article by slug:", e);
+  }
+
+  // Fallback data jika belum dibuat di Sanity
+  const fallbackArticle = defaultLandingData.educationTips.find((t) => t.slug === slug);
+  if (!fallbackArticle) return null;
+
+  return {
+    id: fallbackArticle.id,
+    title: fallbackArticle.title,
+    slug: fallbackArticle.slug,
+    author: fallbackArticle.author,
+    excerpt: fallbackArticle.excerpt,
+    readTime: fallbackArticle.readTime,
+    image: null,
+    content: null,
+    _createdAt: new Date().toISOString(),
+  };
 }

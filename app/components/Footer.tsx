@@ -18,7 +18,7 @@ export default async function Footer() {
               className="h-12 w-auto object-contain mb-6 brightness-0 invert"
             />
             <p className="text-slate-400 mb-6">
-              Mitra kesehatan anabul terpercaya dengan fasilitas modern dan pelayanan sepenuh hati.
+              Mitra kesehatan anabul terpercaya dengan fasilitas memadai dan pelayanan sepenuh hati.
             </p>
             <div className="flex items-center gap-4">
               <a href={landingData.contact.socials.instagram} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center hover:bg-pink-600 transition-colors text-white" aria-label="Instagram">
@@ -35,12 +35,12 @@ export default async function Footer() {
               </a>
               <a href={landingData.contact.socials.tiktok} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center hover:bg-black transition-colors text-white" aria-label="TikTok">
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 15.66a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1.04-.11z"/>
+                  <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 15.66a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1.04-.11z" />
                 </svg>
               </a>
             </div>
           </div>
-          
+
           <div>
             <h4 className="text-white font-bold text-lg mb-6">Tautan Cepat</h4>
             <ul className="space-y-4">
@@ -52,7 +52,7 @@ export default async function Footer() {
               <li><a href="#lokasi" className="hover:text-orange-400 transition-colors">Lokasi Kami</a></li>
             </ul>
           </div>
-          
+
           <div className="lg:col-span-2" id="lokasi">
             <h4 className="text-white font-bold text-lg mb-6">Hubungi Kami</h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -77,7 +77,7 @@ export default async function Footer() {
                 </li>
               </ul>
             </div>
-            
+
             <div className="mt-8 rounded-2xl overflow-hidden shadow-lg h-56 border border-slate-700 relative group">
               <iframe
                 src="https://maps.google.com/maps?q=-6.1393205,106.5367238&t=&z=16&ie=UTF8&iwloc=&output=embed"
@@ -90,7 +90,7 @@ export default async function Footer() {
                 className="absolute inset-0 grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"
               ></iframe>
               <div className="absolute inset-0 pointer-events-none flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-slate-900/10 backdrop-blur-[1px]">
-                <a 
+                <a
                   href={landingData.contact.mapsLink}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -103,7 +103,7 @@ export default async function Footer() {
             </div>
           </div>
         </div>
-        
+
         <div className="border-t border-slate-700 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-slate-500">
             &copy; {new Date().getFullYear()} VetQu Animal Care. All rights reserved.
