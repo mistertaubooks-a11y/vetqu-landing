@@ -54,11 +54,6 @@ export default async function EducationSection() {
                     <Clock className="w-3 h-3 text-emerald-600" />
                     {tip.readTime || '3 Min Read'}
                   </div>
-
-                  <div className="absolute top-3 right-3 bg-white/95 backdrop-blur-sm px-2.5 py-1 rounded-full border border-slate-100 shadow-xs flex items-center gap-1.5 text-slate-700 text-[11px] font-semibold">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                    <span>Artikel VetQu</span>
-                  </div>
                 </div>
                 
                 <div className="p-6">
