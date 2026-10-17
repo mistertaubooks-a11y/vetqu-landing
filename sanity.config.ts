@@ -7,6 +7,7 @@ import { testimonialType } from './sanity/schemas/testimonial';
 import { educationTipType } from './sanity/schemas/educationTip';
 import { faqType } from './sanity/schemas/faq';
 import { facilityType } from './sanity/schemas/facility';
+import { careerType } from './sanity/schemas/career';
 
 function sanitizeProjectId(input?: string): string {
   if (!input) return '9vg8e4g6';
@@ -39,6 +40,7 @@ export default defineConfig({
       testimonialType,
       educationTipType,
       faqType,
+      careerType,
     ],
   },
 });

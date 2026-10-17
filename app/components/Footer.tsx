@@ -1,10 +1,15 @@
 import React from 'react';
-import { getLandingData } from '../lib/data';
+import { getLandingData, getCareers } from '../lib/data';
 import Image from 'next/image';
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 
 export default async function Footer() {
-  const landingData = await getLandingData();
+  const [landingData, careers] = await Promise.all([
+    getLandingData(),
+    getCareers().catch(() => []),
+  ]);
+
+  const hasHiring = Boolean(careers && careers.length > 0 && careers.some((c: any) => c.isOpen !== false));
   return (
     <footer className="bg-[#384959] pt-20 pb-10 text-slate-300">
       <div className="max-w-7xl mx-auto px-6">
@@ -44,12 +49,23 @@ export default async function Footer() {
           <div>
             <h4 className="text-white font-bold text-lg mb-6">Tautan Cepat</h4>
             <ul className="space-y-4">
-              <li><a href="#beranda" className="hover:text-orange-400 transition-colors">Beranda</a></li>
-              <li><a href="#promo" className="hover:text-orange-400 transition-colors">Promo & Diskon</a></li>
-              <li><a href="#layanan" className="hover:text-orange-400 transition-colors">Layanan Klinik</a></li>
-              <li><a href="#dokter" className="hover:text-orange-400 transition-colors">Tim Dokter</a></li>
-              <li><a href="#edukasi" className="hover:text-orange-400 transition-colors">Artikel & Edukasi</a></li>
-              <li><a href="#lokasi" className="hover:text-orange-400 transition-colors">Lokasi Kami</a></li>
+              <li><a href="/#beranda" className="hover:text-orange-400 transition-colors">Beranda</a></li>
+              <li><a href="/#promo" className="hover:text-orange-400 transition-colors">Promo & Diskon</a></li>
+              <li><a href="/#layanan" className="hover:text-orange-400 transition-colors">Layanan Klinik</a></li>
+              <li><a href="/#dokter" className="hover:text-orange-400 transition-colors">Tim Dokter</a></li>
+              <li><a href="/#edukasi" className="hover:text-orange-400 transition-colors">Artikel & Edukasi</a></li>
+              <li>
+                <a href="/karir" className="hover:text-orange-400 transition-colors inline-flex items-center gap-1.5 text-white font-medium">
+                  <span>Karir di VetQu</span>
+                  {hasHiring && (
+                    <span className="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full border border-emerald-500/30">
+                      Hiring
+                    </span>
+                  )}
+                </a>
+              </li>
+              <li><a href="/kritik-saran" className="hover:text-orange-400 transition-colors text-white font-medium">Kritik & Saran</a></li>
+              <li><a href="/#lokasi" className="hover:text-orange-400 transition-colors">Lokasi Kami</a></li>
             </ul>
           </div>
 

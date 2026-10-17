@@ -8,12 +8,13 @@ export default async function Navbar() {
   const landingData = await getLandingData();
   
   const navLinks = [
-    { name: 'Beranda', href: '#beranda' },
-    ...(landingData.promos && landingData.promos.length > 0 ? [{ name: 'Promo', href: '#promo' }] : []),
-    { name: 'Layanan', href: '#layanan' },
-    { name: 'Dokter', href: '#dokter' },
-    { name: 'Edukasi', href: '#edukasi' },
-    { name: 'Lokasi', href: '#lokasi' },
+    { name: 'Beranda', href: '/#beranda' },
+    ...(landingData.promos && landingData.promos.length > 0 ? [{ name: 'Promo', href: '/#promo' }] : []),
+    { name: 'Layanan', href: '/#layanan' },
+    { name: 'Dokter', href: '/#dokter' },
+    { name: 'Edukasi', href: '/#edukasi' },
+    { name: 'Karir', href: '/karir' },
+    { name: 'Lokasi', href: '/#lokasi' },
   ];
 
   return (

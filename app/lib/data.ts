@@ -350,3 +350,127 @@ export async function getEducationArticleBySlug(slug: string) {
     _createdAt: new Date().toISOString(),
   };
 }
+
+export async function getCareers() {
+  try {
+    // Cek apakah di Sanity sudah pernah ada dokumen karir dibuat
+    const totalCount = await client.fetch<number>(`count(*[_type == "career"])`).catch(() => null);
+
+    // Jika sudah ada data karir di Sanity (meskipun statusnya sedang ditutup/isOpen == false)
+    if (typeof totalCount === 'number' && totalCount > 0) {
+      const query = `*[_type == "career" && isOpen == true] | order(order asc) {
+        "id": _id,
+        title,
+        "slug": slug.current,
+        type,
+        location,
+        department,
+        description,
+        requirements,
+        benefits,
+        isOpen
+      }`;
+
+      const activeCareers = await client.fetch(query, {}, { next: { revalidate: 0 } }).catch(() => []);
+      return activeCareers || [];
+    }
+  } catch (error) {
+    console.warn("Error fetching careers:", error);
+  }
+
+  // Fallback HANYA digunakan jika Sanity masih kosong (0 dokumen karir)
+  return [
+    {
+      id: "career-1",
+      title: "Dokter Hewan Praktisi (Small Animal)",
+      slug: "dokter-hewan-praktisi",
+      type: "Full Time",
+      location: "Grand Batavia, Tangerang",
+      department: "Medis",
+      description: "Bertanggung jawab dalam anamnesa, pemeriksaan fisik, diagnosa, tindakan medis, dan edukasi ramah kepada pet parent dengan pendekatan Fear-Free.",
+      requirements: [
+        "Pendidikan Profesi Dokter Hewan (drh) & memiliki STRV / SIP aktif",
+        "Pengalaman kerja di klinik hewan kecil minimal 1 tahun (fresh graduate berpotensi dipersilakan melamar)",
+        "Memiliki pemahaman dasar tindakan bedah minor/mayor dan pemeriksaan penunjang klinis",
+        "Komunikatif, sabar, dan memiliki empati tinggi terhadap pasien maupun owner",
+        "Bersedia ditempatkan di Tangerang dengan sistem kerja shift"
+      ],
+      benefits: [
+        "Gaji pokok kompetitif + insentif tindakan medis & operasi",
+        "Fasilitas kerja dan sarana medis yang memadai",
+        "Akses pelatihan berkala & lingkungan kerja suportif tanpa senioritas toxic",
+        "BPJS Ketenagakerjaan & Kesehatan"
+      ],
+      isOpen: true,
+    },
+    {
+      id: "career-2",
+      title: "Paramedis Veteriner / Vet Nurse",
+      slug: "paramedis-veteriner",
+      type: "Full Time",
+      location: "Grand Batavia, Tangerang",
+      department: "Paramedis",
+      description: "Mendampingi dokter saat tindakan medis, penanganan handling anabul yang lembut, pemberian obat rutin pasien rawat inap, dan sterilisasi alat medis.",
+      requirements: [
+        "Lulusan D3/D4 Paramedik Veteriner atau SMK Peternakan / Kesehatan Hewan",
+        "Penyayang hewan dan tidak takut menghadapi anabul (kucing dan anjing)",
+        "Mampu melakukan restrain yang aman dan minim stres bagi anabul",
+        "Teliti dalam pencatatan rekam medis harian pasien rawat inap",
+        "Disiplin, jujur, dan siap bekerja dalam sistem shift"
+      ],
+      benefits: [
+        "Gaji pokok + uang makan & transport + insentif rawat inap",
+        "BPJS Ketenagakerjaan & Kesehatan",
+        "Ruang istirahat staf yang nyaman di klinik",
+        "Bimbingan teknis langsung dari tim dokter hewan senior"
+      ],
+      isOpen: true,
+    },
+    {
+      id: "career-3",
+      title: "Front Desk & Administrasi Kasir",
+      slug: "administrasi-kasir",
+      type: "Full Time",
+      location: "Grand Batavia, Tangerang",
+      department: "Administrasi",
+      description: "Menjadi garda terdepan pelayanan VetQu dalam menyambut pet parent, pendaftaran antrean klinik/grooming, pencatatan transaksi POS kasir, dan penataan display petshop.",
+      requirements: [
+        "Pendidikan minimal SMA/SMK/D3 segala jurusan",
+        "Ramah, berpenampilan rapi, dan memiliki komunikasi yang luwes (customer-oriented)",
+        "Penyayang anabul dan tidak alergi bulu kucing/anjing",
+        "Mampu mengoperasikan komputer, sistem kasir (POS), dan Ms. Excel / Google Sheets",
+        "Teliti dalam penghitungan transaksi kasir dan rekonsiliasi kas harian"
+      ],
+      benefits: [
+        "Gaji pokok + bonus performa bulanan",
+        "BPJS Ketenagakerjaan & Kesehatan",
+        "Lingkungan kerja bersih ber-AC dan tim yang saling mendukung",
+        "Diskon khusus produk petshop & layanan klinik untuk anabul pribadi"
+      ],
+      isOpen: true,
+    },
+    {
+      id: "career-4",
+      title: "Professional Pet Groomer",
+      slug: "pet-groomer",
+      type: "Full Time",
+      location: "Grand Batavia, Tangerang",
+      department: "Grooming",
+      description: "Bertanggung jawab atas layanan perawatan anabul (mandi sehat, potong kuku, pembersihan telinga, styling bulu, dan mandi kutu/jamur) dengan penanganan yang sabar.",
+      requirements: [
+        "Pengalaman sebagai pet groomer minimal 1 tahun (grooming kucing & anjing)",
+        "Memahami teknik styling bulu dasar hingga rapi (cukur model / styling bulu)",
+        "Sangat sabar dan tidak kasar dalam menangani anabul yang cemas/gelisah",
+        "Menjaga kebersihan dan sanitasi area serta peralatan grooming",
+        "Melampirkan foto/video portofolio hasil grooming menjadi nilai tambah"
+      ],
+      benefits: [
+        "Gaji pokok + komisi per ekor grooming yang menarik",
+        "Peralatan grooming dan produk shampo/kondisioner berkualitas premium",
+        "BPJS Ketenagakerjaan & Kesehatan",
+        "Ruang grooming ber-AC dengan ventilasi yang baik"
+      ],
+      isOpen: true,
+    }
+  ];
+}
