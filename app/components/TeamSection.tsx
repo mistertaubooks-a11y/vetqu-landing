@@ -83,9 +83,9 @@ export default async function TeamSection() {
                 className="bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
               >
                 <div>
-                  <div className="h-64 bg-slate-100 relative overflow-hidden">
+                  <div className="h-72 sm:h-80 bg-slate-100 relative overflow-hidden">
                     {doctor.image ? (
-                      <img src={doctor.image} alt={doctor.name} className="w-full h-full object-cover" />
+                      <img src={doctor.image} alt={doctor.name} className="w-full h-full object-cover object-top" />
                     ) : (
                       <div className="w-full h-full bg-gradient-to-tr from-purple-100 to-indigo-50 flex flex-col items-center justify-center p-6 text-center">
                         <div className="w-20 h-20 rounded-full bg-white shadow-md flex items-center justify-center text-3xl mb-2">
@@ -97,17 +97,17 @@ export default async function TeamSection() {
                       </div>
                     )}
                   </div>
-                  <div className="p-6 md:p-8">
-                    <h3 className="text-2xl font-bold text-slate-800 mb-1">{doctor.name}</h3>
-                    <p className="text-purple-600 font-semibold mb-4 text-sm">{doctor.specialization}</p>
+                  <div className="p-5 md:p-6 pb-4">
+                    <h3 className="text-xl sm:text-2xl font-bold text-slate-800 mb-1">{doctor.name}</h3>
+                    <p className="text-purple-600 font-semibold mb-3 text-sm">{doctor.specialization}</p>
                     
-                    <div className="flex flex-col gap-3">
+                    <div className="flex flex-col gap-2.5">
                       {doctor.experience && (
                         <div className="inline-flex w-max items-center px-3 py-1 bg-slate-100 text-slate-600 text-xs font-medium rounded-full">
                           {doctor.experience}
                         </div>
                       )}
-                      <div className="flex items-start gap-2.5 text-xs text-slate-600 bg-purple-50/60 p-3 rounded-xl border border-purple-100/50">
+                      <div className="flex items-start gap-2.5 text-xs text-slate-600 bg-purple-50/60 p-2.5 rounded-xl border border-purple-100/50">
                         <CalendarClock className="w-4 h-4 text-orange-500 shrink-0 mt-0.5" />
                         <div>
                           <span className="text-slate-400 font-medium">Jadwal Praktek:</span>
@@ -118,7 +118,7 @@ export default async function TeamSection() {
                   </div>
                 </div>
 
-                <div className="p-6 pt-0">
+                <div className="p-5 pt-0">
                   <a
                     href={`https://wa.me/6281219818004?text=Halo%20Admin,%20saya%20ingin%20reservasi%20jadwal%20dengan%20${encodeURIComponent(doctor.name)}`}
                     target="_blank"
