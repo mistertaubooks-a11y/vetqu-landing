@@ -24,9 +24,9 @@ export default async function Navbar() {
           <Image
             src="/images/vetqu-logo.png"
             alt="VetQu Logo"
-            width={140}
-            height={45}
-            className="h-11 md:h-12 w-auto object-contain"
+            width={160}
+            height={54}
+            className="h-12 md:h-[54px] w-auto object-contain"
           />
         </div>
         

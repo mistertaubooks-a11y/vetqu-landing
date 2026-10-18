@@ -18,9 +18,9 @@ export default async function Footer() {
             <Image
               src="/images/vetqu-logo.png"
               alt="VetQu Logo"
-              width={150}
-              height={50}
-              className="h-12 w-auto object-contain mb-6 brightness-0 invert"
+              width={220}
+              height={80}
+              className="h-16 md:h-20 w-auto object-contain mb-6 brightness-0 invert"
             />
             <p className="text-slate-400 mb-6">
               Mitra kesehatan anabul terpercaya dengan fasilitas memadai dan pelayanan sepenuh hati.
