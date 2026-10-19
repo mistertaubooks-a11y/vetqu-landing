@@ -2,9 +2,49 @@ import React from 'react';
 import { getLandingData } from '../lib/data';
 import { CalendarClock, ShieldCheck, Stethoscope, ArrowRight } from 'lucide-react';
 
+function getTeamLayoutConfig(count: number) {
+  if (count === 1) {
+    return {
+      container: 'max-w-md mx-auto flex justify-center',
+      card: 'w-full',
+    };
+  }
+  if (count === 2) {
+    return {
+      container: 'grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto',
+      card: 'w-full',
+    };
+  }
+  if (count === 3) {
+    return {
+      container: 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto',
+      card: 'w-full',
+    };
+  }
+  if (count === 4) {
+    return {
+      container: 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto',
+      card: 'w-full',
+    };
+  }
+  if (count % 3 === 0) {
+    // 6, 9, 12 dokter: Grid 3 kolom terisi penuh simetris
+    return {
+      container: 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto',
+      card: 'w-full',
+    };
+  }
+  // 5, 7, 8 dokter, dst: Flexbox justify-center agar kartu di baris terakhir selalu simetris di tengah
+  return {
+    container: 'flex flex-wrap justify-center gap-8 max-w-6xl mx-auto',
+    card: 'w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)] max-w-sm',
+  };
+}
+
 export default async function TeamSection() {
   const landingData = await getLandingData();
   const doctors = landingData.doctors || [];
+  const layout = getTeamLayoutConfig(doctors.length);
 
   return (
     <section id="dokter" className="py-24 bg-slate-50/80 relative">
@@ -69,18 +109,12 @@ export default async function TeamSection() {
             </div>
           </div>
         ) : (
-          /* JIKA ADA DOKTER DI CMS: GRID OTOMATIS SESUAI JUMLAH DOKTER */
-          <div className={`grid gap-8 ${
-            doctors.length === 1 
-              ? 'max-w-md mx-auto grid-cols-1' 
-              : doctors.length === 2 
-                ? 'max-w-3xl mx-auto grid-cols-1 md:grid-cols-2' 
-                : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
-          }`}>
+          /* JIKA ADA DOKTER DI CMS: GRID / FLEX OTOMATIS SIMETRIS SESUAI JUMLAH DOKTER */
+          <div className={layout.container}>
             {doctors.map((doctor: any) => (
               <div 
                 key={doctor.id} 
-                className="bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+                className={`bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between ${layout.card}`}
               >
                 <div>
                   <div className="h-72 sm:h-80 bg-slate-100 relative overflow-hidden">
