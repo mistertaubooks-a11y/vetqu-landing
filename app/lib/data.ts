@@ -9,6 +9,28 @@ const defaultLandingData = {
       link: "https://wa.me/6281219818004?text=Halo%20Kak,%20saya%20ingin%20booking%20layanan%20atau%20konsultasi%20untuk%20anabul%20saya",
     },
     image: null as string | null,
+    slides: [
+      {
+        image: "/images/hero-vetqu.jpg",
+        badge: "🩺 Klinik Hewan Ramah Anabul",
+        caption: "Pendekatan fear-free agar hewan tetap tenang & nyaman",
+      },
+      {
+        image: "/images/doctor-consultation.jpg",
+        badge: "📋 Konsultasi Dokter Hewan Berizin",
+        caption: "Diagnosis cermat dan penanganan medis terpercaya",
+      },
+      {
+        image: "/images/hero-grooming.jpg",
+        badge: "🛁 Grooming & Perawatan Higienis",
+        caption: "Mandi sehat, anti kutu & jamur dengan shampoo khusus",
+      },
+      {
+        image: "/images/hero-facility.jpg",
+        badge: "🏥 Fasilitas Lengkap & Penuh Kasih",
+        caption: "Rawat inap, vaksinasi, hingga tindakan bedah modern",
+      },
+    ],
   },
   howItWorks: [
     {
@@ -187,6 +209,7 @@ export async function getLandingData() {
         highlight,
         description,
         image,
+        slides,
         ctaText,
         ctaLink
       },
@@ -246,6 +269,13 @@ export async function getLandingData() {
         highlight: sanityData.hero.highlight || defaultLandingData.hero.highlight,
         description: sanityData.hero.description || defaultLandingData.hero.description,
         image: sanityData.hero.image ? urlFor(sanityData.hero.image).width(1200).height(800).url() : defaultLandingData.hero.image,
+        slides: sanityData.hero.slides && sanityData.hero.slides.length > 0
+          ? sanityData.hero.slides.map((s: any) => ({
+              image: s.image ? urlFor(s.image).width(1200).height(850).url() : defaultLandingData.hero.image,
+              badge: s.badge || null,
+              caption: s.caption || null,
+            }))
+          : defaultLandingData.hero.slides,
         cta: {
           text: sanityData.hero.ctaText || defaultLandingData.hero.cta.text,
           link: sanityData.hero.ctaLink || defaultLandingData.hero.cta.link,

@@ -1,9 +1,20 @@
 import React from 'react';
 import { getLandingData } from '../lib/data';
 import { ArrowRight, ShieldCheck, Heart } from 'lucide-react';
+import HeroSlider from './HeroSlider';
 
 export default async function HeroSection() {
   const landingData = await getLandingData();
+  const heroSlides = landingData.hero.slides && landingData.hero.slides.length > 0
+    ? landingData.hero.slides
+    : [
+        {
+          image: landingData.hero.image || "/images/hero-vetqu.jpg",
+          badge: "🩺 Klinik Hewan Ramah Anabul",
+          caption: "Pendekatan fear-free agar hewan tetap tenang & nyaman",
+        },
+      ];
+
   return (
     <section id="beranda" className="relative pt-28 pb-20 lg:pt-36 lg:pb-28 overflow-hidden bg-[#FAF9F6]">
       {/* Subtle organic texture pattern */}
@@ -71,15 +82,12 @@ export default async function HeroSection() {
             </div>
           </div>
           
-          {/* Kolom Kanan: Foto Utama & Frame Elegan Landscape */}
+          {/* Kolom Kanan: Slide Foto Layanan VetQu & Frame Elegan Landscape */}
           <div className="lg:col-span-6 relative">
-            <div className="relative w-full aspect-[4/3] sm:aspect-[16/11] rounded-3xl overflow-hidden shadow-[0_20px_50px_-15px_rgba(0,0,0,0.12)] border-4 border-white bg-slate-100 group">
-              <img 
-                src={landingData.hero.image || "/images/hero-vetqu.jpg"} 
-                alt={landingData.hero.headline} 
-                className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105" 
-              />
-            </div>
+            <HeroSlider 
+              slides={heroSlides} 
+              headline={landingData.hero.headline} 
+            />
           </div>
 
         </div>

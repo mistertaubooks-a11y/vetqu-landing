@@ -35,12 +35,51 @@ export const heroType = defineType({
     }),
     defineField({
       name: 'image',
-      title: 'Foto Utama Hero',
+      title: 'Foto Utama Hero (Statis/Fallback)',
       description: 'Upload foto anabul atau dokter bersama pasien',
       type: 'image',
       options: {
         hotspot: true,
       },
+    }),
+    defineField({
+      name: 'slides',
+      title: 'Slide Foto Carousel Hero (Opsional)',
+      description: 'Tambahkan beberapa foto layanan untuk carousel di hero. Jika kosong, akan memakai foto default.',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            {
+              name: 'image',
+              title: 'Foto Slide',
+              type: 'image',
+              options: { hotspot: true },
+              validation: (rule) => rule.required(),
+            },
+            {
+              name: 'badge',
+              title: 'Label / Tag Badge (Opsional)',
+              type: 'string',
+              description: 'Contoh: 🩺 Penanganan Medis Penuh Kasih',
+            },
+            {
+              name: 'caption',
+              title: 'Keterangan Singkat (Opsional)',
+              type: 'string',
+              description: 'Contoh: Dokter hewan berizin resmi siap merawat anabul Anda',
+            },
+          ],
+          preview: {
+            select: {
+              title: 'badge',
+              subtitle: 'caption',
+              media: 'image',
+            },
+          },
+        },
+      ],
     }),
     defineField({
       name: 'ctaText',
